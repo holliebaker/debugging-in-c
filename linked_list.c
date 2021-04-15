@@ -14,10 +14,10 @@ Node *linked_list = NULL;
 // push string onto front of list
 void push_item(const char *value)
 {
-    char *str = malloc(sizeof(char) * (strlen(value) + 1));
+    char *str = malloc(sizeof(char) * strlen(value));
     strcpy(str, value);
 
-    Node *first = malloc(sizeof(Node)); // TODO malloc strlen, not strlen + 1
+    Node *first = malloc(sizeof(Node));
     first->value = str;
     first->next = linked_list;
 
@@ -33,14 +33,12 @@ const char *get_item(int i)
     Node *curr = linked_list;
     int j = 0;
 
-    while (curr != NULL && j < i) { // TODO don't check NULL, j <= i
+    while (j <= i) {
         curr = curr->next;
         j++;
     }
 
-    // TODO remove turnery
-
-    return curr != NULL ? curr->value : NULL;
+    return curr->value;
 }
 
 bool remove_item(int i)
@@ -53,7 +51,7 @@ bool remove_item(int i)
     Node *prev = NULL;
     int j = 0;
 
-    while (curr != NULL && j < i) { // TODO don't check NULL, j <= i
+    while (j <= i) {
         prev = curr;
         curr = curr->next;
         j++;
@@ -64,17 +62,10 @@ bool remove_item(int i)
     }
 
     // join previous node to next node.
-    // TODO remove NULL check
-    if (prev == NULL) {
-        // we're trying to remove first item in the list
-        linked_list = curr->next;
-    } else {
-        prev->next = curr->next;
-
-    }
+    prev->next = curr->next;
 
     // free memory
-    free(curr->value);
+    free(curr);
     free(curr);
 
     return true;
