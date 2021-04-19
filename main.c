@@ -21,13 +21,21 @@ int main(int argc, const char **argv)
     print_list();
 
     printf("---------\n");
-    for (int idx = -1; idx < 6; idx++) {
-        const char *item = get_item(idx);
+    int idx = -1;
+    const char *item = get_item(idx);
+    printf("%d: %s\n", idx, item == NULL ? "NOT_FOUND": item);
+
+    idx = 100;
+    item = get_item(idx);
+    printf("%d: %s\n", idx, item == NULL ? "NOT_FOUND": item);
+
+    for (int idx = 0; idx < 6; idx++) {
+        item = get_item(idx);
         printf("%d: %s\n", idx, item == NULL ? "NOT_FOUND": item);
     }
 
     printf("---------\n");
-    int idx = 2;
+    idx = 2;
     bool res = remove_item(idx);
     printf("removing %d, success: %s\n", idx, res ? "true" : "false");
     print_list();
