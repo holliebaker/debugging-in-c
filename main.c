@@ -3,6 +3,7 @@
 ==============================================================================*/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "linked_list.h"
 
 int main(int argc, const char **argv)
@@ -10,7 +11,7 @@ int main(int argc, const char **argv)
     printf("Testing linked list...\n");
 
     // initialising an empty list
-    Node *my_list = NULL;
+    Node *my_list = malloc(sizeof(Node));;
 
     push_item(&my_list, "five");
     print_list(my_list);
