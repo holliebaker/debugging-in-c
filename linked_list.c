@@ -8,29 +8,26 @@
 #include <stdbool.h>
 #include "linked_list.h"
 
-// global variable to store the list
-Node *linked_list = NULL;
-
 // push string onto front of list
-void push_item(const char *value)
+void push_item(Node **head, const char *value)
 {
     char *str = malloc(sizeof(char) * strlen(value));
     strcpy(str, value);
 
     Node *first = malloc(sizeof(Node));
     first->value = str;
-    first->next = linked_list;
+    first->next = *head;
 
-    linked_list = first;
+    *head = first;
 }
 
-const char *get_item(int i)
+const char *get_item(Node *head, int i)
 {
     if (i < 0) {
         return NULL;
     }
 
-    Node *curr = linked_list;
+    Node *curr = head;
     int j = 0;
 
     while (j <= i) {
@@ -41,13 +38,13 @@ const char *get_item(int i)
     return curr->value;
 }
 
-bool remove_item(int i)
+bool remove_item(Node **head, int i)
 {
     if (i < 0) {
         return false;
     }
 
-    Node *curr = linked_list;
+    Node *curr = *head;
     Node *prev = NULL;
     int j = 0;
 
@@ -71,9 +68,9 @@ bool remove_item(int i)
     return true;
 }
 
-void print_list()
+void print_list(Node *head)
 {
-    Node *curr = linked_list;
+    Node *curr = head;
 
     printf("[\n");
 
@@ -85,15 +82,15 @@ void print_list()
     printf("]\n");
 }
 
-void destroy_list()
+void destroy_list(Node **head)
 {
-    while (linked_list != NULL) {
-        Node *next = linked_list->next;
+    while (*head != NULL) {
+        Node *next = (*head)->next;
 
-        free(linked_list->value);
-        free(linked_list);
+        free((*head)->value);
+        free(*head);
 
-        linked_list = next;
+        *head = next;
     }
 }
 
